@@ -5,8 +5,7 @@
 
 ### Instead, report it using one of the following options:
 - Submit a **Legal / Abuse Report** using the template in this repository
-- Email: **[insert your email]**
-- Or contact via **[preferred secure channel]**
+- Email: **jordandtr09@gmail.com**
 
 **Include:**
 - A clear description of the vulnerability
