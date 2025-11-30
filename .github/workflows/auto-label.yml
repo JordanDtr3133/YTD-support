@@ -1,0 +1,47 @@
+name: Auto Label Issues
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Apply labels based on keywords
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.toLowerCase();
+            const body = issue.body?.toLowerCase() || "";
+
+            function apply(label) {
+              github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: issue.number,
+                labels: [label]
+              });
+            }
+
+            const mapping = [
+              { keywords: ["bug", "error", "broken"], label: "L-Bug" },
+              { keywords: ["feature", "request", "add"], label: "K-Feature" },
+              { keywords: ["legal", "copyright", "dmca"], label: "F-Compliance" },
+              { keywords: ["security", "vulnerability"], label: "G-Security" },
+              { keywords: ["ui", "css", "layout", "style"], label: "A-UI" },
+              { keywords: ["ux", "interface", "flow"], label: "B-UX" },
+              { keywords: ["backend", "api", "server"], label: "C-Backend" },
+              { keywords: ["performance", "lag", "slow"], label: "D-Performance" },
+              { keywords: ["network", "connection"], label: "E-Networking" },
+              { keywords: ["document", "docs", "readme"], label: "I-Docs" }
+            ];
+
+            for (const group of mapping) {
+              if (group.keywords.some(k => title.includes(k) || body.includes(k))) {
+                apply(group.label);
+              }
+            }
+
+            apply("M-Review");
