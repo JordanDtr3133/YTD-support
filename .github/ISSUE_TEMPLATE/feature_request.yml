@@ -1,0 +1,32 @@
+name: Feature Request
+description: Suggest a new feature or enhancement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "Describe the feature and why it would be useful."
+  - type: input
+    id: summary
+    attributes:
+      label: Feature Summary
+      placeholder: "Add auto-detect resolution profiles"
+    validations:
+      required: true
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: Motivation
+      description: Why should this be added?
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Detailed Description
+      description: Provide as many specifics as possible.
+  - type: input
+    id: impact
+    attributes:
+      label: Impact
+      placeholder: "Improves UX / performance / accuracy"
